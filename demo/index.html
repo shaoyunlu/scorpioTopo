@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<script type="text/javascript" src="lib/jquery.1.10.2.js"></script>
+	<script type="text/javascript" src="lib/snap.js"></script>
+	<script type="text/javascript" src="lib/underscore.js"></script>
+	<script type="text/javascript" src="lib/VTopo.js"></script>
+</head>
+	<style>
+		html,body{padding:0;margin:0;width:100%;height:100%;overflow:hidden;}
+		html,body,*{box-sizing: border-box;}
+		ul{margin:0;padding:0;}
+		li{list-style:none}
+		.test{width:100%;height:100%;display:flex;flex-direction: column;}
+		.head{height:50px;line-height:50px;}
+		.head ul{display:flex;}
+		.head li{cursor:pointer;margin-right:20px;}
+		.content{position: relative; flex:1;}
+		.content svg{width:100%;height:100%;background:url('lib/img/BG.png');}
+	</style>
+<body>
+	<div class="test">
+		<div class="head">
+			<ul>
+				<li id="circleNode" style="margin-left:30px;">节点</li>
+				<li id="save" style="margin-left:100px;">保存</li>
+				<li id="load">加载</li>
+				<li id="clear">清空</li>
+			</ul>
+		</div>
+		<div style="display:flex;flex-direction:row" class="content">
+			<div style="width:1px"></div>
+			<div style="flex:1">
+				<svg id="svg" ></svg>
+			</div>
+		</div>
+		
+	</div>
+
+</body>
+<script>
+	var vTopo = new VTopo({
+		jqSvgEl : $("#svg"),
+		//mode : "view"
+	})
+
+	$("#circleNode").click(function (){
+		vTopo.createCircleNode({img:"6060.png"})
+	})
+
+	$("#save").click(function (){
+		var __data = vTopo.saveData()
+
+		localStorage.vTopo_saveData = __data
+	})
+
+	$("#load").click(function (){
+		vTopo.loadData(JSON.parse(localStorage.vTopo_saveData))
+	})
+
+	$("#clear").click(function (){
+		vTopo.clear()
+	})
+
+	vTopo.loadData(JSON.parse(localStorage.vTopo_saveData))
+
+</script>
+</html>
